@@ -21,6 +21,8 @@ dropin replacement for request
 ## Usage
 Use TypeScript for best in class instellisense.
 
+> note: smartrequest uses the **native** node request module under the hood (not the one from npm)
+
 ```javascript
 import * as smartrequest from 'smartrequest'
 
@@ -36,7 +38,28 @@ let options: smartreqest.ISmartRequestOptions = { // typed options
     }
 }
 
-smartrequest.post('https://example.com', options)
+smartrequest.post('https://example.com', options).then(res => {
+    console.log(res.status)
+    console.log(res.body) // if json, body will be parsed automatically
+}).catch(err => {
+    console.log(err)
+})
+
+// also available
+smartrequest.get(...)
+smartrequest.put(...)
+smartrequest.del(...)
+
+// streaming
+smartrequest.get('https://example.com/bigfile.mp4', optionsArg, true).then(res => { // third arg = true signals streaming
+    console.log(res.status)
+    res.on('data', data => {
+        // do something with the data chunk here
+    }
+    res.on('end', () => {
+        // do something when things have ended
+    })
+})
 
 ```
 
