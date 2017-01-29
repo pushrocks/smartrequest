@@ -20,7 +20,7 @@ let buildResponse = (responseArg): Promise<any> => {
     return done.promise
 }
 
-export let request = async (domainArg: string, optionsArg: interfaces.SmartRequestOptions = {}, streamArg: boolean = false) => {
+export let request = async (domainArg: string, optionsArg: interfaces.ISmartRequestOptions = {}, streamArg: boolean = false) => {
     let done = plugins.q.defer()
     let parsedUrl: plugins.url.Url
     if (domainArg) {

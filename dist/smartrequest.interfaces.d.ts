@@ -1,4 +1,4 @@
 import * as https from 'https';
-export interface SmartRequestOptions extends https.RequestOptions {
+export interface ISmartRequestOptions extends https.RequestOptions {
     requestBody?: any;
 }
