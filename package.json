@@ -21,11 +21,11 @@
   },
   "homepage": "https://gitlab.com/pushrocks/smartrequest#README",
   "dependencies": {
-    "smartq": "^1.1.0",
-    "typings-global": "^1.0.14"
+    "smartq": "^1.1.1",
+    "typings-global": "^1.0.17"
   },
   "devDependencies": {
-    "smartchai": "^1.0.1",
+    "tapbundle": "^1.0.14",
     "typings-test": "^1.0.3"
   }
 }

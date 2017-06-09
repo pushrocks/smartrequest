@@ -5,23 +5,23 @@ import * as interfaces from './smartrequest.interfaces'
 let buildResponse = (responseArg): Promise<any> => {
   let done = plugins.q.defer()
   // Continuously update stream with data
-  let body = '';
+  let body = ''
   responseArg.on('data', function (chunkArg) {
-    body += chunkArg;
-  });
+    body += chunkArg
+  })
   responseArg.on('end', function () {
     try {
-      responseArg.body = JSON.parse(body);
+      responseArg.body = JSON.parse(body)
     } catch (err) {
       responseArg.body = body
     }
     done.resolve(responseArg)
-  });
+  })
   return done.promise
 }
 
-export let request = async (domainArg: string, optionsArg: interfaces.ISmartRequestOptions = {}, streamArg: boolean = false) => {
-  let done = plugins.q.defer()
+export let request = async (domainArg: string, optionsArg: interfaces.ISmartRequestOptions = {}, streamArg: boolean = false): Promise<Response> => {
+  let done = plugins.q.defer<any>()
   let parsedUrl: plugins.url.Url
   if (domainArg) {
     parsedUrl = plugins.url.parse(domainArg)
@@ -44,7 +44,7 @@ export let request = async (domainArg: string, optionsArg: interfaces.ISmartRequ
       request.write(optionsArg.requestBody)
     }
     request.on('error', (e) => {
-      console.error(e);
+      console.error(e)
     })
     request.end()
   } else if (parsedUrl.protocol === 'http:') {
@@ -62,7 +62,7 @@ export let request = async (domainArg: string, optionsArg: interfaces.ISmartRequ
       request.write(optionsArg.requestBody)
     }
     request.on('error', (e) => {
-      console.error(e);
+      console.error(e)
     })
     request.end()
   } else {
