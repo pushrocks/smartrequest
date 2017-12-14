@@ -2,7 +2,7 @@ import 'typings-test'
 
 import { tap, expect } from 'tapbundle'
 
-import * as smartrequest from '../dist/index'
+import * as smartrequest from '../ts/index'
 
 tap.test('should request a html document over https', async () => {
   await expect(

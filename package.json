@@ -21,8 +21,7 @@
   },
   "homepage": "https://gitlab.com/pushrocks/smartrequest#README",
   "dependencies": {
-    "smartq": "^1.1.1",
-    "typings-global": "^1.0.17"
+    "smartq": "^1.1.1"
   },
   "devDependencies": {
     "tapbundle": "^1.0.14",

@@ -16,6 +16,18 @@ export let get = async (domainArg: string, optionsArg: interfaces.ISmartRequestO
 
 export let post = async (domainArg: string, optionsArg: interfaces.ISmartRequestOptions = {}) => {
   optionsArg.method = 'POST'
+  if (
+    typeof optionsArg.requestBody === 'object'
+    && (!optionsArg.headers || (!optionsArg.headers['Content-Type']))
+  ){
+    // make sure headers exist
+    if(!optionsArg.headers) { optionsArg.headers = {} }
+
+    // assign the right Content-Type, leaving all other headers in place
+    Object.assign(optionsArg.headers, {
+      'Content-Type': 'application/json'
+    })
+  }
   let response = await request(domainArg, optionsArg)
   return response
 }

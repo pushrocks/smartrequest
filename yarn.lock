@@ -284,7 +284,7 @@ typed-promisify@^0.3.0:
   version "0.3.0"
   resolved "https://registry.yarnpkg.com/typed-promisify/-/typed-promisify-0.3.0.tgz#1ba0af5e444c87d8047406f18ce49092a1191853"
 
-typings-global@*, typings-global@^1.0.14, typings-global@^1.0.16, typings-global@^1.0.17:
+typings-global@*, typings-global@^1.0.14, typings-global@^1.0.16:
   version "1.0.17"
   resolved "https://registry.yarnpkg.com/typings-global/-/typings-global-1.0.17.tgz#41edc331ccec3168289adc8849e1e255efbe7152"
   dependencies:
