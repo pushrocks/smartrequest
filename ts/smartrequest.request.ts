@@ -31,7 +31,7 @@ export let request = async (
   domainArg: string,
   optionsArg: interfaces.ISmartRequestOptions = {},
   streamArg: boolean = false
-): Promise<Response> => {
+): Promise<extendedIncomingMessage> => {
   let done = plugins.q.defer<any>();
   let parsedUrl: plugins.url.Url;
   if (domainArg) {

@@ -3,9 +3,9 @@ import * as https from 'https';
 import * as plugins from './smartrequest.plugins';
 import * as interfaces from './smartrequest.interfaces';
 
-import { request } from './smartrequest.request';
+import { request, extendedIncomingMessage } from './smartrequest.request';
 
-export { request } from './smartrequest.request';
+export { request, extendedIncomingMessage } from './smartrequest.request';
 export { ISmartRequestOptions } from './smartrequest.interfaces';
 
 export let get = async (domainArg: string, optionsArg: interfaces.ISmartRequestOptions = {}) => {
@@ -13,6 +13,21 @@ export let get = async (domainArg: string, optionsArg: interfaces.ISmartRequestO
   let response = await request(domainArg, optionsArg);
   return response;
 };
+
+export let getBinary = async (domainArg: string, optionsArg: interfaces.ISmartRequestOptions = {}) => {
+  const response = await request(domainArg, optionsArg, true);
+  var data = [];
+
+  response.on('data', function(chunk) {
+      data.push(chunk);
+  }).on('end', function() {
+      //at this point data is an array of Buffers
+      //so Buffer.concat() can make us a new Buffer
+      //of all of them together
+      const buffer = Buffer.concat(data);
+      response.body = buffer.toString('base64');
+  });
+}
 
 export let post = async (domainArg: string, optionsArg: interfaces.ISmartRequestOptions = {}) => {
   optionsArg.method = 'POST';
