@@ -1,13 +1,16 @@
 # smartrequest
+
 dropin replacement for request
 
 ## Availabililty
+
 [![npm](https://push.rocks/assets/repo-button-npm.svg)](https://www.npmjs.com/package/smartrequest)
 [![git](https://push.rocks/assets/repo-button-git.svg)](https://GitLab.com/pushrocks/smartrequest)
 [![git](https://push.rocks/assets/repo-button-mirror.svg)](https://github.com/pushrocks/smartrequest)
 [![docs](https://push.rocks/assets/repo-button-docs.svg)](https://pushrocks.gitlab.io/smartrequest/)
 
 ## Status for master
+
 [![build status](https://GitLab.com/pushrocks/smartrequest/badges/master/build.svg)](https://GitLab.com/pushrocks/smartrequest/commits/master)
 [![coverage report](https://GitLab.com/pushrocks/smartrequest/badges/master/coverage.svg)](https://GitLab.com/pushrocks/smartrequest/commits/master)
 [![npm downloads per month](https://img.shields.io/npm/dm/smartrequest.svg)](https://www.npmjs.com/package/smartrequest)
@@ -19,6 +22,7 @@ dropin replacement for request
 [![JavaScript Style Guide](https://img.shields.io/badge/code%20style-standard-brightgreen.svg)](http://standardjs.com/)
 
 ## Usage
+
 Use TypeScript for best in class instellisense.
 
 > note: smartrequest uses the **native** node request module under the hood (not the one from npm)
@@ -60,7 +64,6 @@ smartrequest.get('https://example.com/bigfile.mp4', optionsArg, true).then(res =
         // do something when things have ended
     })
 })
-
 ```
 
 [![npm](https://push.rocks/assets/repo-header.svg)](https://push.rocks)
