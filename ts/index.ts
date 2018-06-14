@@ -26,7 +26,7 @@ export let getBinary = async (domainArg: string, optionsArg: interfaces.ISmartRe
       //so Buffer.concat() can make us a new Buffer
       //of all of them together
       const buffer = Buffer.concat(data);
-      response.body = buffer.toString('base64');
+      response.body = buffer.toString('binary');
       done.resolve();
   });
   await done.promise;

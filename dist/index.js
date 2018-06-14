@@ -28,7 +28,7 @@ exports.getBinary = (domainArg, optionsArg = {}) => __awaiter(this, void 0, void
         //so Buffer.concat() can make us a new Buffer
         //of all of them together
         const buffer = Buffer.concat(data);
-        response.body = buffer.toString('base64');
+        response.body = buffer.toString('binary');
         done.resolve();
     });
     yield done.promise;
