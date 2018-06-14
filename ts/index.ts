@@ -27,6 +27,7 @@ export let getBinary = async (domainArg: string, optionsArg: interfaces.ISmartRe
       const buffer = Buffer.concat(data);
       response.body = buffer.toString('base64');
   });
+  return response;
 }
 
 export let post = async (domainArg: string, optionsArg: interfaces.ISmartRequestOptions = {}) => {
