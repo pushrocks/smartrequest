@@ -15,6 +15,7 @@ export let get = async (domainArg: string, optionsArg: interfaces.ISmartRequestO
 };
 
 export let getBinary = async (domainArg: string, optionsArg: interfaces.ISmartRequestOptions = {}) => {
+  const done = plugins.smartq.defer();
   const response = await request(domainArg, optionsArg, true);
   var data = [];
 
@@ -26,7 +27,9 @@ export let getBinary = async (domainArg: string, optionsArg: interfaces.ISmartRe
       //of all of them together
       const buffer = Buffer.concat(data);
       response.body = buffer.toString('base64');
+      done.resolve();
   });
+  await done.promise;
   return response;
 }
 

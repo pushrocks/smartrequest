@@ -9,7 +9,7 @@ export interface extendedIncomingMessage extends IncomingMessage {
 };
 
 let buildResponse = (incomingMessageArg: IncomingMessage): Promise<extendedIncomingMessage> => {
-  let done = plugins.q.defer<extendedIncomingMessage>();
+  let done = plugins.smartq.defer<extendedIncomingMessage>();
   // Continuously update stream with data
   let body = '';
   incomingMessageArg.on('data', function(chunkArg) {
@@ -32,7 +32,7 @@ export let request = async (
   optionsArg: interfaces.ISmartRequestOptions = {},
   streamArg: boolean = false
 ): Promise<extendedIncomingMessage> => {
-  let done = plugins.q.defer<any>();
+  let done = plugins.smartq.defer<any>();
   let parsedUrl: plugins.url.Url;
   if (domainArg) {
     parsedUrl = plugins.url.parse(domainArg);
