@@ -1,13 +1,13 @@
 {
-  "name": "smartrequest",
+  "name": "@pushrocks/smartrequest",
   "version": "1.0.13",
   "private": false,
   "description": "dropin replacement for request",
   "main": "dist/index.js",
   "typings": "dist/index.d.ts",
   "scripts": {
-    "test": "(npmts)",
-    "build": "echo \"Not needed for now\""
+    "test": "tsrun test/test.ts",
+    "build": "(npmts)"
   },
   "repository": {
     "type": "git",
@@ -26,6 +26,7 @@
     "smartq": "^1.1.1"
   },
   "devDependencies": {
+    "@gitzone/tsrun": "^1.0.5",
     "@types/node": "^10.3.3",
     "tapbundle": "^2.0.0",
     "typings-test": "^1.0.3"
