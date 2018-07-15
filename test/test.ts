@@ -1,6 +1,4 @@
-import 'typings-test';
-
-import { tap, expect } from 'tapbundle';
+import { tap, expect } from '@pushrocks/tapbundle';
 
 import * as smartrequest from '../ts/index';
 
@@ -23,5 +21,7 @@ tap.test('should post a JSON document over http', async () => {
     .property('md5')
     .equal('fa4c6baa0812e5b5c80ed8885e55a8a6');
 });
+
+tap.test('should deal with unix socks', async () => {});
 
 tap.start();
