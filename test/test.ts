@@ -22,6 +22,8 @@ tap.test('should post a JSON document over http', async () => {
     .equal('fa4c6baa0812e5b5c80ed8885e55a8a6');
 });
 
-tap.test('should deal with unix socks', async () => {});
+tap.test('should deal with unix socks', async () => {
+  await expect(smartrequest.request('http://unix:/var/run/docker.sock:/containers'))
+});
 
 tap.start();
