@@ -3,3 +3,4 @@ export { ISmartRequestOptions } from './smartrequest.interfaces';
 
 export * from './smartrequest.jsonrest';
 export * from './smartrequest.binaryrest';
+export * from './smartrequest.formdata';

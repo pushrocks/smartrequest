@@ -32,4 +32,8 @@ tap.skip.test('should deal with unix socks', async () => {
   console.log(socketResponse.body);
 });
 
+tap.skip.test('should correctly upload a file using formData', async () => {
+  
+})
+
 tap.start();
