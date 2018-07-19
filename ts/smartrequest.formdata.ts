@@ -57,7 +57,13 @@ export const postFormData = async (
   const pipeLog: any = async (...args) => {
     console.log(args);
   };
-  const requestOptions = Object.assign({}, optionsArg, { requestBody: form });
+  const requestOptions = Object.assign({}, optionsArg, {
+    headers: {
+      ...(optionsArg.headers),
+      ...getFormDataHeaders(form)
+    },
+    requestBody: form
+  });
 
   // lets fire the actual request for sending the formdata
   const response = await request(urlArg, requestOptions);
