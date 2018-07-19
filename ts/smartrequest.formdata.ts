@@ -58,5 +58,6 @@ export const postFormData = async (
   const requestOptions = Object.assign({}, optionsArg, { requestBody: form });
 
   // lets fire the actual request for sending the formdata
-  request(urlArg, requestOptions);
+  const response = await request(urlArg, requestOptions);
+  return response;
 };
