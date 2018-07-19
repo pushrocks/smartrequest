@@ -37,7 +37,7 @@ const appendFormField = async (
   if (formDataField.type === "filePath") {
     formDataArg.append("type", "image");
     let fileData = plugins.fs.createReadStream(
-      plugins.path.join(__dirname, formDataField.payload)
+      plugins.path.join(process.cwd(), formDataField.payload)
     );
     formDataArg.append("media", fileData, "upload.pdf");
   }
