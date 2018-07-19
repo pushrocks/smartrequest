@@ -35,11 +35,13 @@ const appendFormField = async (
   formDataField: IFormField
 ) => {
   if (formDataField.type === "filePath") {
-    formDataArg.append("type", "image");
-    let fileData = plugins.fs.createReadStream(
+    let fileData = plugins.fs.readFileSync(
       plugins.path.join(process.cwd(), formDataField.payload)
     );
-    formDataArg.append("media", fileData, "upload.pdf");
+    formDataArg.append("file", fileData, {
+      filename: 'upload.pdf',
+      contentType: 'application/pdf'
+    });
   }
 };
 
