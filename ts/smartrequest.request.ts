@@ -98,7 +98,9 @@ export let request = async (
       request.write(optionsArg.requestBody);
       request.end();
     } else if (optionsArg.requestBody instanceof plugins.formData) {
-      optionsArg.requestBody.pipe(request);
+      optionsArg.requestBody.pipe(request).on('finish', event => {
+        request.end();
+      });
     }
   } else {
     request.end();
