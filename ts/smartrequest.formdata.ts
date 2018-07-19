@@ -36,6 +36,7 @@ export const postFormData = async (
     await appendFormField(form, formField);
   }
   const requestOptions = Object.assign({}, optionsArg, {
+    method: 'POST',
     headers: {
       ...(optionsArg.headers),
       ...form.getHeaders()
