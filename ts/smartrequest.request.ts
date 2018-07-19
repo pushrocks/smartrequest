@@ -96,9 +96,12 @@ export let request = async (
     ) {
       optionsArg.requestBody = JSON.stringify(optionsArg.requestBody);
       request.write(optionsArg.requestBody);
+      request.end();
     } else if (optionsArg.requestBody instanceof plugins.formData) {
       optionsArg.requestBody.pipe(request);
     }
+  } else {
+    request.end();
   }
 
   // lets handle an error
@@ -115,8 +118,6 @@ export let request = async (
       done.resolve(builtResponse);
     }
   });
-
-  request.end();
 
   const result = await done.promise;
   return result;
