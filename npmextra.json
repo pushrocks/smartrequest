@@ -1,6 +1,6 @@
 {
   "npmts": {
-    "coverageTreshold": 60
+    "coverageTreshold": 50
   },
   "npmci": {
     "npmGlobalTools": [
