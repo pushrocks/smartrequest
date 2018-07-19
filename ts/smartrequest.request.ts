@@ -86,7 +86,28 @@ export let request = async (
 
 
   // lets perform the actual request
-  let request = requestModule.request(optionsArg, async response => {
+  let request = requestModule.request(optionsArg);
+
+  // lets write the requestBody
+  if (optionsArg.requestBody) {
+    if (
+      typeof optionsArg.requestBody !== "string"
+      && !(optionsArg.requestBody instanceof plugins.formData)
+    ) {
+      optionsArg.requestBody = JSON.stringify(optionsArg.requestBody);
+      request.write(optionsArg.requestBody);
+    } else if (optionsArg.requestBody instanceof plugins.formData) {
+      optionsArg.requestBody.pipe(request);
+    }
+  }
+
+  // lets handle an error
+  request.on("error", e => {
+    console.error(e);
+  });
+
+  // lets handle the response
+  request.on("response", async response => {
     if (streamArg) {
       done.resolve(response);
     } else {
@@ -95,16 +116,6 @@ export let request = async (
     }
   });
 
-  // lets write the requestBody
-  if (optionsArg.requestBody) {
-    if (typeof optionsArg.requestBody !== "string") {
-      optionsArg.requestBody = JSON.stringify(optionsArg.requestBody);
-    }
-    request.write(optionsArg.requestBody);
-  }
-  request.on("error", e => {
-    console.error(e);
-  });
   request.end();
 
   const result = await done.promise;

@@ -23,7 +23,9 @@
   },
   "homepage": "https://gitlab.com/pushrocks/smartrequest#README",
   "dependencies": {
-    "@pushrocks/smartpromise": "^2.0.5"
+    "@pushrocks/smartpromise": "^2.0.5",
+    "@types/form-data": "^2.2.1",
+    "form-data": "^2.3.2"
   },
   "devDependencies": {
     "@gitzone/tsrun": "^1.1.9",
