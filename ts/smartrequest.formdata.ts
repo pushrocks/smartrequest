@@ -11,25 +11,6 @@ export interface IFormField {
   payload: string;
 }
 
-/**
- * retrieve the FormData headers in reliable way
- * @param formDataArg
- */
-const getFormDataHeaders = (formDataArg: plugins.formData) => {
-  const done = plugins.smartpromise.defer();
-  formDataArg.getLength((err, length) => {
-    if (err) {
-      done.reject(err);
-    }
-    const headers = Object.assign(
-      { "Content-Length": length },
-      formDataArg.getHeaders()
-    );
-    done.resolve(headers);
-  });
-  return done.promise;
-};
-
 const appendFormField = async (
   formDataArg: plugins.formData,
   formDataField: IFormField
@@ -54,13 +35,10 @@ export const postFormData = async (
   for (const formField of payloadArg) {
     await appendFormField(form, formField);
   }
-  const pipeLog: any = async (...args) => {
-    console.log(args);
-  };
   const requestOptions = Object.assign({}, optionsArg, {
     headers: {
       ...(optionsArg.headers),
-      ...getFormDataHeaders(form)
+      ...form.getHeaders()
     },
     requestBody: form
   });
