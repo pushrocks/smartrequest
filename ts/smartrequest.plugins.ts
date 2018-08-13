@@ -7,4 +7,4 @@ import * as url from 'url';
 
 import * as smartpromise from '@pushrocks/smartpromise';
 
-export {formData, http, https, fs, path, url, smartpromise };
+export { formData, http, https, fs, path, url, smartpromise };

@@ -1,8 +1,8 @@
-import * as https from "https";
-import * as plugins from "./smartrequest.plugins";
-import * as interfaces from "./smartrequest.interfaces";
+import * as https from 'https';
+import * as plugins from './smartrequest.plugins';
+import * as interfaces from './smartrequest.interfaces';
 
-import { IncomingMessage } from "http";
+import { IncomingMessage } from 'http';
 
 export interface IExtendedIncomingMessage extends IncomingMessage {
   body: any;
@@ -13,12 +13,12 @@ const buildUtf8Response = (
 ): Promise<IExtendedIncomingMessage> => {
   let done = plugins.smartpromise.defer<IExtendedIncomingMessage>();
   // Continuously update stream with data
-  let body = "";
-  incomingMessageArg.on("data", function(chunkArg) {
+  let body = '';
+  incomingMessageArg.on('data', function(chunkArg) {
     body += chunkArg;
   });
 
-  incomingMessageArg.on("end", function() {
+  incomingMessageArg.on('end', function() {
     try {
       (incomingMessageArg as IExtendedIncomingMessage).body = JSON.parse(body);
     } catch (err) {
@@ -47,8 +47,8 @@ const parseSocketPathAndRoute = (stringToParseArg: string) => {
   return {
     socketPath: result[1],
     path: result[2]
-  }
-}
+  };
+};
 
 export let request = async (
   domainArg: string,
@@ -67,23 +67,22 @@ export let request = async (
   optionsArg.path = parsedUrl.path;
 
   // determine if unixsock
-  if(testForUnixSock(domainArg)) {
-    const detailedUnixPath = parseSocketPathAndRoute(optionsArg.path)
+  if (testForUnixSock(domainArg)) {
+    const detailedUnixPath = parseSocketPathAndRoute(optionsArg.path);
     optionsArg.socketPath = detailedUnixPath.socketPath;
     optionsArg.path = detailedUnixPath.path;
   }
-  
+
   // lets determine the request module to use
   const requestModule = (() => {
-    if (parsedUrl.protocol === "https:") {
+    if (parsedUrl.protocol === 'https:') {
       return plugins.https;
-    } else if (parsedUrl.protocol === "http:") {
+    } else if (parsedUrl.protocol === 'http:') {
       return plugins.http;
     } else {
       throw new Error(`unsupported protocol: ${parsedUrl.protocol}`);
     }
   })() as typeof plugins.https;
-
 
   // lets perform the actual request
   let request = requestModule.request(optionsArg);
@@ -91,7 +90,7 @@ export let request = async (
   // lets write the requestBody
   if (optionsArg.requestBody) {
     if (!(optionsArg.requestBody instanceof plugins.formData)) {
-      if(typeof optionsArg.requestBody !== "string") {
+      if (typeof optionsArg.requestBody !== 'string') {
         optionsArg.requestBody = JSON.stringify(optionsArg.requestBody);
       }
       request.write(optionsArg.requestBody);
@@ -106,16 +105,16 @@ export let request = async (
   }
 
   // lets handle an error
-  request.on("error", e => {
+  request.on('error', e => {
     console.error(e);
   });
 
   // lets handle the response
-  request.on("response", async response => {
+  request.on('response', async response => {
     if (streamArg) {
       done.resolve(response);
     } else {
-      const builtResponse = await buildUtf8Response(response)
+      const builtResponse = await buildUtf8Response(response);
       done.resolve(builtResponse);
     }
   });

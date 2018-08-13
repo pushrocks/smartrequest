@@ -23,17 +23,18 @@ tap.test('should post a JSON document over http', async () => {
 });
 
 tap.skip.test('should deal with unix socks', async () => {
-  const socketResponse = await smartrequest.request('http://unix:/var/run/docker.sock:/containers/json', {
-    headers: {
-      "Content-Type": "application/json",
-      "Host": "docker.sock"
+  const socketResponse = await smartrequest.request(
+    'http://unix:/var/run/docker.sock:/containers/json',
+    {
+      headers: {
+        'Content-Type': 'application/json',
+        Host: 'docker.sock'
+      }
     }
-  });
+  );
   console.log(socketResponse.body);
 });
 
-tap.skip.test('should correctly upload a file using formData', async () => {
-  
-})
+tap.skip.test('should correctly upload a file using formData', async () => {});
 
 tap.start();
