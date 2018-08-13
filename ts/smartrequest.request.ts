@@ -90,11 +90,10 @@ export let request = async (
 
   // lets write the requestBody
   if (optionsArg.requestBody) {
-    if (
-      typeof optionsArg.requestBody !== "string"
-      && !(optionsArg.requestBody instanceof plugins.formData)
-    ) {
-      optionsArg.requestBody = JSON.stringify(optionsArg.requestBody);
+    if (!(optionsArg.requestBody instanceof plugins.formData)) {
+      if(typeof optionsArg.requestBody !== "string") {
+        optionsArg.requestBody = JSON.stringify(optionsArg.requestBody);
+      }
       request.write(optionsArg.requestBody);
       request.end();
     } else if (optionsArg.requestBody instanceof plugins.formData) {
