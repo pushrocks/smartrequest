@@ -5,5 +5,15 @@
   "npmci": {
     "npmGlobalTools": [],
     "npmAccessLevel": "public"
+  },
+  "gitzone": {
+    "module": {
+      "githost": "gitlab.com",
+      "gitscope": "pushrocks",
+      "gitrepo": "smartrequest",
+      "shortDescription": "dropin replacement for request",
+      "npmPackagename": "@pushrocks/smartrequest",
+      "license": "MIT"
+    }
   }
 }
