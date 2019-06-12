@@ -9,7 +9,8 @@ export interface IExtendedIncomingMessage extends IncomingMessage {
 }
 
 const buildUtf8Response = (
-  incomingMessageArg: IncomingMessage
+  incomingMessageArg: IncomingMessage,
+  autoJsonParse = true
 ): Promise<IExtendedIncomingMessage> => {
   let done = plugins.smartpromise.defer<IExtendedIncomingMessage>();
   // Continuously update stream with data
@@ -19,9 +20,13 @@ const buildUtf8Response = (
   });
 
   incomingMessageArg.on('end', function() {
-    try {
-      (incomingMessageArg as IExtendedIncomingMessage).body = JSON.parse(body);
-    } catch (err) {
+    if (autoJsonParse) {
+      try {
+        (incomingMessageArg as IExtendedIncomingMessage).body = JSON.parse(body);
+      } catch (err) {
+        (incomingMessageArg as IExtendedIncomingMessage).body = body;
+      }
+    } else {
       (incomingMessageArg as IExtendedIncomingMessage).body = body;
     }
     done.resolve(incomingMessageArg as IExtendedIncomingMessage);
@@ -56,6 +61,16 @@ export let request = async (
   streamArg: boolean = false
 ): Promise<IExtendedIncomingMessage> => {
   let done = plugins.smartpromise.defer<any>();
+
+  // merge options
+  const defaultOptions: interfaces.ISmartRequestOptions = {
+    autoJsonParse: true
+  }
+
+  optionsArg = {
+    ...defaultOptions,
+    ...optionsArg
+  }
 
   // parse url
   let parsedUrl: plugins.url.Url;
@@ -114,7 +129,7 @@ export let request = async (
     if (streamArg) {
       done.resolve(response);
     } else {
-      const builtResponse = await buildUtf8Response(response);
+      const builtResponse = await buildUtf8Response(response, optionsArg.autoJsonParse);
       done.resolve(builtResponse);
     }
   });
