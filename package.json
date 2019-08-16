@@ -33,5 +33,16 @@
     "@gitzone/tstest": "^1.0.20",
     "@pushrocks/tapbundle": "^3.0.9",
     "@types/node": "^11.13.6"
-  }
+  },
+  "files": [
+    "ts/*",
+    "ts_web/*",
+    "dist/*",
+    "dist_web/*",
+    "dist_ts_web/*",
+    "assets/*",
+    "cli.js",
+    "npmextra.json",
+    "readme.md"
+  ]
 }

@@ -65,12 +65,12 @@ export let request = async (
   // merge options
   const defaultOptions: interfaces.ISmartRequestOptions = {
     autoJsonParse: true
-  }
+  };
 
   optionsArg = {
     ...defaultOptions,
     ...optionsArg
-  }
+  };
 
   // parse url
   let parsedUrl: plugins.url.Url;
