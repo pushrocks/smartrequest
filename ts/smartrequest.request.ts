@@ -88,6 +88,8 @@ export let request = async (
     optionsArg.path = detailedUnixPath.path;
   }
 
+  // TODO: support tcp sockets
+
   // lets determine the request module to use
   const requestModule = (() => {
     if (parsedUrl.protocol === 'https:') {
