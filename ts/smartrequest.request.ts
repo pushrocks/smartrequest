@@ -55,6 +55,16 @@ const parseSocketPathAndRoute = (stringToParseArg: string) => {
   };
 };
 
+const httpAgent = new plugins.http.Agent({
+  keepAlive: true,
+  keepAliveMsecs: 600000
+});
+
+const httpsAgent = new plugins.https.Agent({
+  keepAlive: true,
+  keepAliveMsecs: 600000
+});
+
 export let request = async (
   domainArg: string,
   optionsArg: interfaces.ISmartRequestOptions = {},
@@ -64,6 +74,7 @@ export let request = async (
 
   // merge options
   const defaultOptions: interfaces.ISmartRequestOptions = {
+    // agent: agent,
     autoJsonParse: true
   };
 
@@ -93,8 +104,10 @@ export let request = async (
   // lets determine the request module to use
   const requestModule = (() => {
     if (parsedUrl.protocol === 'https:') {
+      optionsArg.agent = httpsAgent;
       return plugins.https;
     } else if (parsedUrl.protocol === 'http:') {
+      optionsArg.agent = httpAgent;
       return plugins.http;
     } else {
       throw new Error(`unsupported protocol: ${parsedUrl.protocol}`);
