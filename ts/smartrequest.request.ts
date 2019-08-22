@@ -14,11 +14,11 @@ const buildUtf8Response = (
   const done = plugins.smartpromise.defer<IExtendedIncomingMessage>();
   // Continuously update stream with data
   let body = '';
-  incomingMessageArg.on('data', function(chunkArg) {
+  incomingMessageArg.on('data', (chunkArg) => {
     body += chunkArg;
   });
 
-  incomingMessageArg.on('end', function() {
+  incomingMessageArg.on('end', () => {
     if (autoJsonParse) {
       try {
         (incomingMessageArg as IExtendedIncomingMessage).body = JSON.parse(body);
