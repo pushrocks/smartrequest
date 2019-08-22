@@ -54,11 +54,17 @@ const parseSocketPathAndRoute = (stringToParseArg: string) => {
   };
 };
 
+/**
+ * a custom http agent to make sure we can set custom keepAlive options for speedy subsequent calls
+ */
 const httpAgent = new plugins.http.Agent({
   keepAlive: true,
   keepAliveMsecs: 600000
 });
 
+/**
+ * a custom https agent to make sure we can set custom keepAlive options for speedy subsequent calls
+ */
 const httpsAgent = new plugins.https.Agent({
   keepAlive: true,
   keepAliveMsecs: 600000
