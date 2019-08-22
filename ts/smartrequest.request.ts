@@ -1,4 +1,3 @@
-import * as https from 'https';
 import * as plugins from './smartrequest.plugins';
 import * as interfaces from './smartrequest.interfaces';
 
@@ -12,7 +11,7 @@ const buildUtf8Response = (
   incomingMessageArg: IncomingMessage,
   autoJsonParse = true
 ): Promise<IExtendedIncomingMessage> => {
-  let done = plugins.smartpromise.defer<IExtendedIncomingMessage>();
+  const done = plugins.smartpromise.defer<IExtendedIncomingMessage>();
   // Continuously update stream with data
   let body = '';
   incomingMessageArg.on('data', function(chunkArg) {
@@ -70,7 +69,7 @@ export let request = async (
   optionsArg: interfaces.ISmartRequestOptions = {},
   streamArg: boolean = false
 ): Promise<IExtendedIncomingMessage> => {
-  let done = plugins.smartpromise.defer<any>();
+  const done = plugins.smartpromise.defer<any>();
 
   // merge options
   const defaultOptions: interfaces.ISmartRequestOptions = {
@@ -84,11 +83,10 @@ export let request = async (
   };
 
   // parse url
-  let parsedUrl: plugins.url.Url;
-  parsedUrl = plugins.url.parse(domainArg);
+  const parsedUrl = plugins.url.parse(domainArg);
   optionsArg.hostname = parsedUrl.hostname;
   if (parsedUrl.port) {
-    optionsArg.port = parseInt(parsedUrl.port);
+    optionsArg.port = parseInt(parsedUrl.port, 10);
   }
   optionsArg.path = parsedUrl.path;
 
@@ -115,7 +113,7 @@ export let request = async (
   })() as typeof plugins.https;
 
   // lets perform the actual request
-  let request = requestModule.request(optionsArg);
+  const requestToFire = requestModule.request(optionsArg);
 
   // lets write the requestBody
   if (optionsArg.requestBody) {
@@ -123,24 +121,24 @@ export let request = async (
       if (typeof optionsArg.requestBody !== 'string') {
         optionsArg.requestBody = JSON.stringify(optionsArg.requestBody);
       }
-      request.write(optionsArg.requestBody);
-      request.end();
+      requestToFire.write(optionsArg.requestBody);
+      requestToFire.end();
     } else if (optionsArg.requestBody instanceof plugins.formData) {
-      optionsArg.requestBody.pipe(request).on('finish', event => {
-        request.end();
+      optionsArg.requestBody.pipe(requestToFire).on('finish', event => {
+        requestToFire.end();
       });
     }
   } else {
-    request.end();
+    requestToFire.end();
   }
 
   // lets handle an error
-  request.on('error', e => {
+  requestToFire.on('error', e => {
     console.error(e);
   });
 
   // lets handle the response
-  request.on('response', async response => {
+  requestToFire.on('response', async response => {
     if (streamArg) {
       done.resolve(response);
     } else {
