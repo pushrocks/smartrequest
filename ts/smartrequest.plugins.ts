@@ -1,4 +1,4 @@
-import * as formData from 'form-data';
+import formData from 'form-data';
 import * as fs from 'fs';
 import * as http from 'http';
 import * as https from 'https';

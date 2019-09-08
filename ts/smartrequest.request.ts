@@ -14,7 +14,7 @@ const buildUtf8Response = (
   const done = plugins.smartpromise.defer<IExtendedIncomingMessage>();
   // Continuously update stream with data
   let body = '';
-  incomingMessageArg.on('data', (chunkArg) => {
+  incomingMessageArg.on('data', chunkArg => {
     body += chunkArg;
   });
 
@@ -97,7 +97,7 @@ export let request = async (
   const defaultOptions: interfaces.ISmartRequestOptions = {
     // agent: agent,
     autoJsonParse: true,
-    keepAlive:true,
+    keepAlive: true
   };
 
   optionsArg = {
@@ -137,15 +137,6 @@ export let request = async (
       case parsedUrl.protocol === 'http:' && !optionsArg.keepAlive:
         optionsArg.agent = httpAgentKeepAliveFalse;
         return plugins.http;
-    }
-    if () {
-      optionsArg.agent = httpsAgent;
-      return plugins.https;
-    } else if (parsedUrl.protocol === 'http:') {
-      optionsArg.agent = httpAgent;
-      return plugins.http;
-    } else {
-      throw new Error(`unsupported protocol: ${parsedUrl.protocol}`);
     }
   })() as typeof plugins.https;
 
