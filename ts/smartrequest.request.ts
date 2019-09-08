@@ -63,10 +63,26 @@ const httpAgent = new plugins.http.Agent({
 });
 
 /**
+ * a custom http agent to make sure we can set custom keepAlive options for speedy subsequent calls
+ */
+const httpAgentKeepAliveFalse = new plugins.http.Agent({
+  keepAlive: false,
+  keepAliveMsecs: 600000
+});
+
+/**
  * a custom https agent to make sure we can set custom keepAlive options for speedy subsequent calls
  */
 const httpsAgent = new plugins.https.Agent({
   keepAlive: true,
+  keepAliveMsecs: 600000
+});
+
+/**
+ * a custom https agent to make sure we can set custom keepAlive options for speedy subsequent calls
+ */
+const httpsAgentKeepAliveFalse = new plugins.https.Agent({
+  keepAlive: false,
   keepAliveMsecs: 600000
 });
 
@@ -80,7 +96,8 @@ export let request = async (
   // merge options
   const defaultOptions: interfaces.ISmartRequestOptions = {
     // agent: agent,
-    autoJsonParse: true
+    autoJsonParse: true,
+    keepAlive:true,
   };
 
   optionsArg = {
@@ -107,7 +124,21 @@ export let request = async (
 
   // lets determine the request module to use
   const requestModule = (() => {
-    if (parsedUrl.protocol === 'https:') {
+    switch (true) {
+      case parsedUrl.protocol === 'https:' && optionsArg.keepAlive:
+        optionsArg.agent = httpsAgent;
+        return plugins.https;
+      case parsedUrl.protocol === 'https:' && !optionsArg.keepAlive:
+        optionsArg.agent = httpsAgentKeepAliveFalse;
+        return plugins.https;
+      case parsedUrl.protocol === 'http:' && optionsArg.keepAlive:
+        optionsArg.agent = httpAgent;
+        return plugins.http;
+      case parsedUrl.protocol === 'http:' && !optionsArg.keepAlive:
+        optionsArg.agent = httpAgentKeepAliveFalse;
+        return plugins.http;
+    }
+    if () {
       optionsArg.agent = httpsAgent;
       return plugins.https;
     } else if (parsedUrl.protocol === 'http:') {

@@ -28,10 +28,10 @@
     "form-data": "^2.3.3"
   },
   "devDependencies": {
-    "@gitzone/tsbuild": "^2.1.8",
-    "@gitzone/tsrun": "^1.2.5",
-    "@gitzone/tstest": "^1.0.20",
-    "@pushrocks/tapbundle": "^3.0.9",
+    "@gitzone/tsbuild": "^2.1.17",
+    "@gitzone/tsrun": "^1.2.8",
+    "@gitzone/tstest": "^1.0.24",
+    "@pushrocks/tapbundle": "^3.0.13",
     "@types/node": "^11.13.6",
     "tslint": "^5.19.0",
     "tslint-config-prettier": "^1.18.0"
