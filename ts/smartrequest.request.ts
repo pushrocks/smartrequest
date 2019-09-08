@@ -66,8 +66,9 @@ const httpAgent = new plugins.http.Agent({
  * a custom http agent to make sure we can set custom keepAlive options for speedy subsequent calls
  */
 const httpAgentKeepAliveFalse = new plugins.http.Agent({
+  maxFreeSockets: 0,
   keepAlive: false,
-  keepAliveMsecs: 600000
+  keepAliveMsecs: 0
 });
 
 /**
@@ -82,8 +83,9 @@ const httpsAgent = new plugins.https.Agent({
  * a custom https agent to make sure we can set custom keepAlive options for speedy subsequent calls
  */
 const httpsAgentKeepAliveFalse = new plugins.https.Agent({
+  maxFreeSockets: 0,
   keepAlive: false,
-  keepAliveMsecs: 600000
+  keepAliveMsecs: 0
 });
 
 export let request = async (
