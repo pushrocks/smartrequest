@@ -143,20 +143,27 @@ export let request = async (
   })() as typeof plugins.https;
 
   // lets perform the actual request
-  const requestToFire = requestModule.request(optionsArg);
+  const requestToFire = requestModule.request(optionsArg, async response => {
+    if (streamArg) {
+      done.resolve(response);
+    } else {
+      const builtResponse = await buildUtf8Response(response, optionsArg.autoJsonParse);
+      done.resolve(builtResponse);
+    }
+  });
 
   // lets write the requestBody
   if (optionsArg.requestBody) {
-    if (!(optionsArg.requestBody instanceof plugins.formData)) {
+    if (optionsArg.requestBody instanceof plugins.formData) {
+      optionsArg.requestBody.pipe(requestToFire).on('finish', event => {
+        requestToFire.end();
+      });
+    } else {
       if (typeof optionsArg.requestBody !== 'string') {
         optionsArg.requestBody = JSON.stringify(optionsArg.requestBody);
       }
       requestToFire.write(optionsArg.requestBody);
       requestToFire.end();
-    } else if (optionsArg.requestBody instanceof plugins.formData) {
-      optionsArg.requestBody.pipe(requestToFire).on('finish', event => {
-        requestToFire.end();
-      });
     }
   } else {
     requestToFire.end();
@@ -165,16 +172,6 @@ export let request = async (
   // lets handle an error
   requestToFire.on('error', e => {
     console.error(e);
-  });
-
-  // lets handle the response
-  requestToFire.on('response', async response => {
-    if (streamArg) {
-      done.resolve(response);
-    } else {
-      const builtResponse = await buildUtf8Response(response, optionsArg.autoJsonParse);
-      done.resolve(builtResponse);
-    }
   });
 
   const result = await done.promise;
