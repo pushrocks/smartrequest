@@ -13,7 +13,7 @@ export interface IFormField {
 
 const appendFormField = async (formDataArg: plugins.formData, formDataField: IFormField) => {
   if (formDataField.type === 'filePath') {
-    let fileData = plugins.fs.readFileSync(plugins.path.join(process.cwd(), formDataField.payload));
+    const fileData = plugins.fs.readFileSync(plugins.path.join(process.cwd(), formDataField.payload));
     formDataArg.append('file', fileData, {
       filename: 'upload.pdf',
       contentType: 'application/pdf'
@@ -30,14 +30,13 @@ export const postFormData = async (
   for (const formField of payloadArg) {
     await appendFormField(form, formField);
   }
-  const requestOptions = Object.assign({}, optionsArg, {
+  const requestOptions = {...optionsArg, 
     method: 'POST',
     headers: {
       ...optionsArg.headers,
       ...form.getHeaders()
     },
-    requestBody: form
-  });
+    requestBody: form};
 
   // lets fire the actual request for sending the formdata
   const response = await request(urlArg, requestOptions);
