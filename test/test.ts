@@ -6,6 +6,12 @@ tap.test('should request a html document over https', async () => {
   await expect(smartrequest.getJson('https://encrypted.google.com/'))
     .to.eventually.property('body')
     .be.a('string');
+  await expect(smartrequest.getJson('https://encrypted.google.com/'))
+    .to.eventually.property('body')
+    .be.a('string');
+  await expect(smartrequest.getJson('https://encrypted.google.com/'))
+    .to.eventually.property('body')
+    .be.a('string');
 });
 
 tap.test('should request a JSON document over https', async () => {
