@@ -85,7 +85,8 @@ const httpsAgentKeepAliveFalse = new plugins.https.Agent({
 export let request = async (
   domainArg: string,
   optionsArg: interfaces.ISmartRequestOptions = {},
-  streamArg: boolean = false
+  responseStreamArg: boolean = false,
+  requestDataFunc: (req: plugins.http.ClientRequest) => void = null
 ): Promise<IExtendedIncomingMessage> => {
   const done = plugins.smartpromise.defer<any>();
 
@@ -138,7 +139,7 @@ export let request = async (
 
   // lets perform the actual request
   const requestToFire = requestModule.request(optionsArg, async response => {
-    if (streamArg) {
+    if (responseStreamArg) {
       done.resolve(response);
     } else {
       const builtResponse = await buildUtf8Response(response, optionsArg.autoJsonParse);
@@ -159,6 +160,8 @@ export let request = async (
       requestToFire.write(optionsArg.requestBody);
       requestToFire.end();
     }
+  } else if (requestDataFunc) {
+    requestDataFunc(requestToFire);
   } else {
     requestToFire.end();
   }
