@@ -12,6 +12,4 @@ export { formData, http, https, fs, path, url, smartpromise };
 // third party scope
 import * as agentkeepalive from 'agentkeepalive';
 
-export {
-  agentkeepalive
-};
+export { agentkeepalive };

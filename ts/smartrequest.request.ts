@@ -125,13 +125,13 @@ export let request = async (
       case parsedUrl.protocol === 'https:' && optionsArg.keepAlive:
         optionsArg.agent = httpsAgent;
         return plugins.https;
-      case parsedUrl.protocol === 'https:' && (!optionsArg.keepAlive):
+      case parsedUrl.protocol === 'https:' && !optionsArg.keepAlive:
         optionsArg.agent = httpsAgentKeepAliveFalse;
         return plugins.https;
       case parsedUrl.protocol === 'http:' && optionsArg.keepAlive:
         optionsArg.agent = httpAgent;
         return plugins.http;
-      case parsedUrl.protocol === 'http:' && (!optionsArg.keepAlive):
+      case parsedUrl.protocol === 'http:' && !optionsArg.keepAlive:
         optionsArg.agent = httpAgentKeepAliveFalse;
         return plugins.http;
     }
