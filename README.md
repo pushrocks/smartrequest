@@ -35,7 +35,7 @@ Use TypeScript for best in class instellisense.
 * used in modules like @pushrocks/smartproxy and @apiglobal/typedrequest
 * commercial support available at [https://lossless.support](https://lossless.support)
 
-> note: smartrequest uses the **native** node request module under the hood (not the one from npm)
+> note: smartrequest uses the **native** node http/https modules under the hood (not the bloated one from npm)
 
 ```javascript
 import * as smartrequest from 'smartrequest'
