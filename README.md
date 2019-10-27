@@ -46,23 +46,24 @@ let options: smartrequest.ISmartRequestOptions = { // typed options
         "Content-Type": "application/json"
         "Authorization": "Bearer token"
     },
-    requestBody: {
+    requestBody: JSON.stringify({
         key1: 'value1',
         key2: 3
-    }
+    })
 }
 
-smartrequest.post('https://example.com', options).then(res => {
+smartrequest.request('https://example.com', options).then(res => {
     console.log(res.status)
     console.log(res.body) // if json, body will be parsed automatically
 }).catch(err => {
     console.log(err)
 })
 
-// also available
-smartrequest.get(...)
-smartrequest.put(...)
-smartrequest.del(...)
+// dedicated JSON metods are available:
+smartrequest.getJson(...)
+smartrequest.postJson(...)
+smartrequest.putJson(...)
+smartrequest.delJson(...)
 
 // streaming
 smartrequest.get('https://example.com/bigfile.mp4', optionsArg, true).then(res => { // third arg = true signals streaming
