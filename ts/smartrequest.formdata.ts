@@ -8,18 +8,33 @@ import { request } from './smartrequest.request';
 export interface IFormField {
   name: string;
   type: 'string' | 'filePath' | 'Buffer';
-  payload: string;
+  payload: string | Buffer;
+  fileName?: string;
 }
 
 const appendFormField = async (formDataArg: plugins.formData, formDataField: IFormField) => {
-  if (formDataField.type === 'filePath') {
-    const fileData = plugins.fs.readFileSync(
-      plugins.path.join(process.cwd(), formDataField.payload)
-    );
-    formDataArg.append('file', fileData, {
-      filename: 'upload.pdf',
-      contentType: 'application/pdf'
-    });
+  switch (formDataField.type) {
+    case 'string':
+      formDataArg.append(formDataField.name, formDataField.payload);
+      break;
+    case 'filePath':
+      if (typeof formDataField.payload !== 'string') {
+        throw new Error(`Payload for key ${formDataField.name} must be of type string. Got ${typeof formDataField.payload} instead.`);
+      }
+      const fileData = plugins.fs.readFileSync(
+        plugins.path.join(process.cwd(), formDataField.payload)
+      );
+      formDataArg.append('file', fileData, {
+        filename: formDataField.fileName ? formDataField.fileName : 'upload.pdf',
+        contentType: 'application/pdf'
+      });
+      break;
+    case 'Buffer':
+      formDataArg.append('file', formDataField.payload, {
+        filename: formDataField.fileName ? formDataField.fileName : 'upload.pdf',
+        contentType: 'application/pdf'
+      });
+      break;
   }
 };
 
