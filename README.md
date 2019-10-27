@@ -20,6 +20,20 @@ dropin replacement for request
 
 Use TypeScript for best in class instellisense.
 
+### Features
+
+* supports http
+* supports https
+* supports unix socks
+* supports formData
+* supports file uploads
+* supports best practice keepAlive
+* dedicated functions for working with JSON request/response cycles
+* written in TypeScript
+* continuously updated
+* uses node native http and https modules
+* used in modules like @pushrocks/smartproxy and @apiglobal/typedrequest
+
 > note: smartrequest uses the **native** node request module under the hood (not the one from npm)
 
 ```javascript
