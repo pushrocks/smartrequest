@@ -19,7 +19,11 @@ const appendFormField = async (formDataArg: plugins.formData, formDataField: IFo
       break;
     case 'filePath':
       if (typeof formDataField.payload !== 'string') {
-        throw new Error(`Payload for key ${formDataField.name} must be of type string. Got ${typeof formDataField.payload} instead.`);
+        throw new Error(
+          `Payload for key ${
+            formDataField.name
+          } must be of type string. Got ${typeof formDataField.payload} instead.`
+        );
       }
       const fileData = plugins.fs.readFileSync(
         plugins.path.join(process.cwd(), formDataField.payload)
