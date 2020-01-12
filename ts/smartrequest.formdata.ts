@@ -10,6 +10,7 @@ export interface IFormField {
   type: 'string' | 'filePath' | 'Buffer';
   payload: string | Buffer;
   fileName?: string;
+  contentType?: string;
 }
 
 const appendFormField = async (formDataArg: plugins.formData, formDataField: IFormField) => {
@@ -34,9 +35,9 @@ const appendFormField = async (formDataArg: plugins.formData, formDataField: IFo
       });
       break;
     case 'Buffer':
-      formDataArg.append('file', formDataField.payload, {
+      formDataArg.append(formDataField.name, formDataField.payload, {
         filename: formDataField.fileName ? formDataField.fileName : 'upload.pdf',
-        contentType: 'application/pdf'
+        contentType: formDataField.contentType ? formDataField.contentType : 'application/pdf'
       });
       break;
   }
