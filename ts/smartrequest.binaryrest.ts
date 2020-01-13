@@ -8,6 +8,10 @@ export const getBinary = async (
   domainArg: string,
   optionsArg: interfaces.ISmartRequestOptions = {}
 ) => {
+  optionsArg = {
+    ...optionsArg,
+    autoJsonParse: false
+  };
   const done = plugins.smartpromise.defer();
   const response = await request(domainArg, optionsArg, true);
   const data = [];
