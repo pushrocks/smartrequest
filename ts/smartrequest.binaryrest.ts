@@ -21,7 +21,7 @@ export const getBinary = async (
       //so Buffer.concat() can make us a new Buffer
       //of all of them together
       const buffer = Buffer.concat(data);
-      response.body = buffer.toString('binary');
+      response.body = buffer;
       done.resolve();
     });
   await done.promise;
