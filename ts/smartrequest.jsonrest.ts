@@ -14,7 +14,7 @@ export const getJson = async (
 ) => {
   optionsArg.method = 'GET';
   optionsArg.headers = {
-    ...optionsArg.headers
+    ...optionsArg.headers,
   };
   let response = await request(domainArg, optionsArg);
   return response;
@@ -37,7 +37,7 @@ export const postJson = async (
     // assign the right Content-Type, leaving all other headers in place
     optionsArg.headers = {
       ...optionsArg.headers,
-      'Content-Type': 'application/json'
+      'Content-Type': 'application/json',
     };
   }
   let response = await request(domainArg, optionsArg);

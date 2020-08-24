@@ -34,8 +34,8 @@ tap.skip.test('should deal with unix socks', async () => {
     {
       headers: {
         'Content-Type': 'application/json',
-        Host: 'docker.sock'
-      }
+        Host: 'docker.sock',
+      },
     }
   );
   console.log(socketResponse.body);

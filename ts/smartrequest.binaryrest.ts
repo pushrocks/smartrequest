@@ -10,17 +10,17 @@ export const getBinary = async (
 ) => {
   optionsArg = {
     ...optionsArg,
-    autoJsonParse: false
+    autoJsonParse: false,
   };
   const done = plugins.smartpromise.defer();
   const response = await request(domainArg, optionsArg, true);
   const data = [];
 
   response
-    .on('data', function(chunk) {
+    .on('data', function (chunk) {
       data.push(chunk);
     })
-    .on('end', function() {
+    .on('end', function () {
       //at this point data is an array of Buffers
       //so Buffer.concat() can make us a new Buffer
       //of all of them together

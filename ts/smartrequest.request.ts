@@ -14,7 +14,7 @@ const buildUtf8Response = (
   const done = plugins.smartpromise.defer<IExtendedIncomingMessage>();
   // Continuously update stream with data
   let body = '';
-  incomingMessageArg.on('data', chunkArg => {
+  incomingMessageArg.on('data', (chunkArg) => {
     body += chunkArg;
   });
 
@@ -50,7 +50,7 @@ const parseSocketPathAndRoute = (stringToParseArg: string) => {
   const result = parseRegex.exec(stringToParseArg);
   return {
     socketPath: result[1],
-    path: result[2]
+    path: result[2],
   };
 };
 
@@ -65,7 +65,7 @@ const httpAgent = new plugins.agentkeepalive.default();
 const httpAgentKeepAliveFalse = new plugins.http.Agent({
   maxFreeSockets: 0,
   keepAlive: false,
-  keepAliveMsecs: 0
+  keepAliveMsecs: 0,
 });
 
 /**
@@ -79,7 +79,7 @@ const httpsAgent = new plugins.agentkeepalive.HttpsAgent();
 const httpsAgentKeepAliveFalse = new plugins.https.Agent({
   maxFreeSockets: 0,
   keepAlive: false,
-  keepAliveMsecs: 0
+  keepAliveMsecs: 0,
 });
 
 export let request = async (
@@ -94,12 +94,12 @@ export let request = async (
   const defaultOptions: interfaces.ISmartRequestOptions = {
     // agent: agent,
     autoJsonParse: true,
-    keepAlive: true
+    keepAlive: true,
   };
 
   optionsArg = {
     ...defaultOptions,
-    ...optionsArg
+    ...optionsArg,
   };
 
   // parse url
@@ -138,7 +138,7 @@ export let request = async (
   })() as typeof plugins.https;
 
   // lets perform the actual request
-  const requestToFire = requestModule.request(optionsArg, async response => {
+  const requestToFire = requestModule.request(optionsArg, async (response) => {
     if (responseStreamArg) {
       done.resolve(response);
     } else {
@@ -150,7 +150,7 @@ export let request = async (
   // lets write the requestBody
   if (optionsArg.requestBody) {
     if (optionsArg.requestBody instanceof plugins.formData) {
-      optionsArg.requestBody.pipe(requestToFire).on('finish', event => {
+      optionsArg.requestBody.pipe(requestToFire).on('finish', (event) => {
         requestToFire.end();
       });
     } else {
@@ -167,7 +167,7 @@ export let request = async (
   }
 
   // lets handle an error
-  requestToFire.on('error', e => {
+  requestToFire.on('error', (e) => {
     console.error(e);
   });
 

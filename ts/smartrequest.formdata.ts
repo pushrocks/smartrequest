@@ -31,13 +31,13 @@ const appendFormField = async (formDataArg: plugins.formData, formDataField: IFo
       );
       formDataArg.append('file', fileData, {
         filename: formDataField.fileName ? formDataField.fileName : 'upload.pdf',
-        contentType: 'application/pdf'
+        contentType: 'application/pdf',
       });
       break;
     case 'Buffer':
       formDataArg.append(formDataField.name, formDataField.payload, {
         filename: formDataField.fileName ? formDataField.fileName : 'upload.pdf',
-        contentType: formDataField.contentType ? formDataField.contentType : 'application/pdf'
+        contentType: formDataField.contentType ? formDataField.contentType : 'application/pdf',
       });
       break;
   }
@@ -57,9 +57,9 @@ export const postFormData = async (
     method: 'POST',
     headers: {
       ...optionsArg.headers,
-      ...form.getHeaders()
+      ...form.getHeaders(),
     },
-    requestBody: form
+    requestBody: form,
   };
 
   // lets fire the actual request for sending the formdata
