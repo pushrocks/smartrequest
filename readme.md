@@ -48,7 +48,7 @@ Use TypeScript for best in class instellisense.
 import * as smartrequest from 'smartrequest'
 
 // simple post
-let options: smartrequest.ISmartRequestOptions = { // typed options
+const options: smartrequest.ISmartRequestOptions = { // typed options
     headers: {
         "Content-Type": "application/json"
         "Authorization": "Bearer token"
@@ -66,7 +66,7 @@ smartrequest.request('https://example.com', options).then(res => {
     console.log(err)
 })
 
-// dedicated JSON metods are available:
+// dedicated JSON methods are available:
 smartrequest.getJson(...)
 smartrequest.postJson(...)
 smartrequest.putJson(...)
