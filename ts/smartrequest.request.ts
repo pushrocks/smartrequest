@@ -83,7 +83,7 @@ const httpsAgentKeepAliveFalse = new plugins.https.Agent({
 });
 
 export let request = async (
-  domainArg: string,
+  urlArg: string,
   optionsArg: interfaces.ISmartRequestOptions = {},
   responseStreamArg: boolean = false,
   requestDataFunc: (req: plugins.http.ClientRequest) => void = null
@@ -103,7 +103,7 @@ export let request = async (
   };
 
   // parse url
-  const parsedUrl = plugins.url.parse(domainArg);
+  const parsedUrl = plugins.url.parse(urlArg);
   optionsArg.hostname = parsedUrl.hostname;
   if (parsedUrl.port) {
     optionsArg.port = parseInt(parsedUrl.port, 10);
@@ -111,7 +111,7 @@ export let request = async (
   optionsArg.path = parsedUrl.path;
 
   // determine if unixsock
-  if (testForUnixSock(domainArg)) {
+  if (testForUnixSock(urlArg)) {
     const detailedUnixPath = parseSocketPathAndRoute(optionsArg.path);
     optionsArg.socketPath = detailedUnixPath.socketPath;
     optionsArg.path = detailedUnixPath.path;
@@ -138,7 +138,7 @@ export let request = async (
   })() as typeof plugins.https;
 
   if (!requestModule) {
-    console.error(`The request to ${domainArg} is missing a viable protocol. Must be http or https`);
+    console.error(`The request to ${urlArg} is missing a viable protocol. Must be http or https`);
     return;
   }
 
