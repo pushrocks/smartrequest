@@ -137,6 +137,11 @@ export let request = async (
     }
   })() as typeof plugins.https;
 
+  if (!requestModule) {
+    console.error(`The request to ${domainArg} is missing a viable protocol. Must be http or https`);
+    return;
+  }
+
   // lets perform the actual request
   const requestToFire = requestModule.request(optionsArg, async (response) => {
     if (responseStreamArg) {
