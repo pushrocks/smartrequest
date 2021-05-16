@@ -5,4 +5,5 @@ export interface ISmartRequestOptions extends https.RequestOptions {
   keepAlive?: boolean;
   requestBody?: any;
   autoJsonParse?: boolean;
+  queryParams?: {[key: string]: string}
 }

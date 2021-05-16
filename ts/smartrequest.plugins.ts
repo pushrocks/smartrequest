@@ -1,15 +1,19 @@
-import formData from 'form-data';
+// node native scope
 import * as fs from 'fs';
 import * as http from 'http';
 import * as https from 'https';
 import * as path from 'path';
-import * as url from 'url';
 
+export { http, https, fs, path };
+
+// pushrocks scope
 import * as smartpromise from '@pushrocks/smartpromise';
+import * as smarturl from '@pushrocks/smarturl';
 
-export { formData, http, https, fs, path, url, smartpromise };
+export { smartpromise, smarturl };
 
 // third party scope
-import * as agentkeepalive from 'agentkeepalive';
+import agentkeepalive from 'agentkeepalive';
+import formData from 'form-data';
 
-export { agentkeepalive };
+export { agentkeepalive, formData };

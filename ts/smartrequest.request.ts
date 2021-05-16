@@ -57,7 +57,7 @@ const parseSocketPathAndRoute = (stringToParseArg: string) => {
 /**
  * a custom http agent to make sure we can set custom keepAlive options for speedy subsequent calls
  */
-const httpAgent = new plugins.agentkeepalive.default();
+const httpAgent = new plugins.agentkeepalive();
 
 /**
  * a custom http agent to make sure we can set custom keepAlive options for speedy subsequent calls
@@ -103,12 +103,15 @@ export let request = async (
   };
 
   // parse url
-  const parsedUrl = plugins.url.parse(urlArg);
+  const parsedUrl = plugins.smarturl.Smarturl.createFromUrl(urlArg, {
+    searchParams: optionsArg.queryParams || {}
+  });
   optionsArg.hostname = parsedUrl.hostname;
   if (parsedUrl.port) {
     optionsArg.port = parseInt(parsedUrl.port, 10);
   }
   optionsArg.path = parsedUrl.path;
+  optionsArg.queryParams = parsedUrl.searchParams;
 
   // determine if unixsock
   if (testForUnixSock(urlArg)) {

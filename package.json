@@ -23,16 +23,17 @@
   },
   "homepage": "https://gitlab.com/pushrocks/smartrequest#README",
   "dependencies": {
-    "@pushrocks/smartpromise": "^3.0.6",
-    "agentkeepalive": "^4.1.3",
-    "form-data": "^3.0.0"
+    "@pushrocks/smartpromise": "^3.1.5",
+    "@pushrocks/smarturl": "^2.0.1",
+    "agentkeepalive": "^4.1.4",
+    "form-data": "^4.0.0"
   },
   "devDependencies": {
     "@gitzone/tsbuild": "^2.1.25",
     "@gitzone/tsrun": "^1.2.12",
-    "@gitzone/tstest": "^1.0.44",
-    "@pushrocks/tapbundle": "^3.2.9",
-    "@types/node": "^14.6.0",
+    "@gitzone/tstest": "^1.0.54",
+    "@pushrocks/tapbundle": "^3.2.14",
+    "@types/node": "^15.3.0",
     "tslint": "^6.1.3",
     "tslint-config-prettier": "^1.18.0"
   },
